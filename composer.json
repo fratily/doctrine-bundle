@@ -1,0 +1,26 @@
+{
+    "name": "fratily/doctrine-bundle",
+    "type": "library",
+    "keywords": [
+        "fratily",
+        "bundle",
+        "doctrine"
+    ],
+    "authors": [
+        {
+            "name": "Kento Oka",
+            "email": "kento-oka@kentoka.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "fratily/kernel": "^0.2.4",
+        "fratily/container": "^0.5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fratily\\Bundle\\Doctrine\\": "src/"
+        }
+    }
+}
