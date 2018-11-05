@@ -15,5 +15,8 @@ namespace Fratily\Bundle\Doctrine;
 
 use Fratily\Kernel\Bundle\Bundle;
 
+/**
+ * 
+ */
 class DoctrineBundle extends Bundle{
 }

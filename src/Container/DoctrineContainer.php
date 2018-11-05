@@ -13,17 +13,50 @@
  */
 namespace Fratily\Bundle\Doctrine\Container;
 
+use Fratily\Bundle\Doctrine\ManagerRegistry;
 use Fratily\Container\Builder\AbstractContainer;
-use Fratily\Container\Builder\ContainerBuilderInterface;
+use Fratily\Container\Builder\ContainerBuilder;
 
+/**
+ *
+ */
 class DoctrineContainer extends AbstractContainer{
 
     /**
      * {@inheritdoc}
      */
-    public static function build(ContainerBuilderInterface $builder, array $options){
+    public static function build(ContainerBuilder $builder, array $options){
+        $builder
+            ->add(
+                "doctrine",
+                ManagerRegistry::class,
+                [],
+                [ManagerRegistry::class]
+            )
+        ;
+
+        $builder->parameter(ManagerRegistry::class)
+            ->add(
+                "managers",
+                $builder->lazyGetTaggedIdList("doctrine.entityManager")
+            )
+            ->add(
+                "default",
+                $builder->lazyCallable(
+                    function($list){
+                        return array_shift($list);
+                    },
+                    $builder->lazyGetTaggedIdList("doctrine.entityManager.default")
+                )
+            )
+        ;
+
+        $builder->isSingleton(ManagerRegistry::class);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function modify(\Fratily\Container\Container $container){
     }
 }
